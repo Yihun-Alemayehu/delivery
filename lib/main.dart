@@ -23,24 +23,38 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Container(
-        child: ElevatedButton(
-          onPressed: () {
-            Chapa.paymentParameters(
-              context: context,
-              publicKey: 'CHAPUBK_TEST-GzbYVqxNhbsNxR2dMpdzAQQZDw4GLccC',
-              currency: 'ETB',
-              amount: '100',
-              email: 'yankure01@gmail.com',
-              phone: '0982394038',
-              firstName: 'Yihun',
-              lastName: 'Aleamyehu',
-              txRef: 'txRef',
-              title: 'title',
-              desc: 'desc',
-              namedRouteFallBack: '/checkout',
-            );
-          },
-          child: const Text('Pay now'),
+        child: Center(
+          child: TextButton(
+            onPressed: () {
+              Chapa.paymentParameters(
+                context: context,
+                publicKey: 'CHAPUBK_TEST-GzbYVqxNhbsNxR2dMpdzAQQZDw4GLccC',
+                currency: 'ETB',
+                amount: '100',
+                email: 'yankure01@gmail.com',
+                phone: '0982394038',
+                firstName: 'Yihun',
+                lastName: 'Aleamyehu',
+                txRef: 'txRef',
+                title: 'title',
+                desc: 'desc',
+                namedRouteFallBack: '/checkout',
+              );
+            },
+            child: Container(
+                padding: EdgeInsets.all(12),
+                margin: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(12)),
+                child: const Text(
+                  'Pay now',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                  ),
+                )),
+          ),
         ),
       ),
     );
