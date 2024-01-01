@@ -1,10 +1,14 @@
 import 'package:chapasdk/chapasdk.dart';
+import 'package:delivery_too/checkout_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MaterialApp(
+  runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: HomePage(),
+    home: const HomePage(),
+    routes: {
+      '/checkout': (context) => const CheckOut(),
+    },
   ));
 }
 
@@ -20,10 +24,24 @@ class HomePage extends StatelessWidget {
       ),
       body: Container(
         child: ElevatedButton(
-          onPressed: (){
-            Chapa.paymentParameters(context: context, publicKey: publicKey, currency: currency, amount: amount, email: email, phone: phone, firstName: firstName, lastName: lastName, txRef: txRef, title: title, desc: desc, namedRouteFallBack: namedRouteFallBack)
-          }, 
-          child: const Text('Pay now'),),
+          onPressed: () {
+            Chapa.paymentParameters(
+              context: context,
+              publicKey: 'CHAPUBK_TEST-GzbYVqxNhbsNxR2dMpdzAQQZDw4GLccC',
+              currency: 'ETB',
+              amount: '100',
+              email: 'yankure01@gmail.com',
+              phone: '0982394038',
+              firstName: 'Yihun',
+              lastName: 'Aleamyehu',
+              txRef: 'txRef',
+              title: 'title',
+              desc: 'desc',
+              namedRouteFallBack: '/checkout',
+            );
+          },
+          child: const Text('Pay now'),
+        ),
       ),
     );
   }
