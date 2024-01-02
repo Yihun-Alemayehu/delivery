@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:chapasdk/chapasdk.dart';
 import 'package:chapasdk/chapawebview.dart';
 import 'package:delivery_too/checkout_screen.dart';
@@ -6,17 +8,47 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: const HomePage(),
-    routes: {
-      '/checkout': (context) => const CheckOut(),
+    initialRoute: '/',
+    onGenerateRoute: (settings) {
+      switch (settings.name) {
+        case '/checkout':
+          return MaterialPageRoute(
+            builder: (context) => const Payment(),
+          );
+        default:
+          return MaterialPageRoute(
+            builder: (context) => const Payment(),
+          );
+      }
     },
   ));
 }
 
+class Payment extends StatefulWidget {
+  const Payment({super.key});
 
+  @override
+  State<Payment> createState() => _PaymentState();
+}
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class _PaymentState extends State<Payment> {
+  var args;
+//test
+  @override
+  void initState() {
+    Future.delayed(Duration.zero, () {
+      setState(() {
+        if (ModalRoute.of(context)?.settings.arguments != null) {
+          args = ModalRoute.of(context)?.settings.arguments;
+          print('message after payment');
+          print(args['message']);
+        }
+      });
+    });
+
+    super.initState();
+    // context.read<CheckoutPage>().getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +60,9 @@ class HomePage extends StatelessWidget {
       body: Container(
         child: Center(
           child: TextButton(
-            onPressed: () {
-              Chapa.paymentParameters(
+            onPressed: () async {
+              print("started....");
+              Chapa result = await Chapa.paymentParameters(
                 context: context,
                 publicKey: 'CHAPUBK_TEST-GzbYVqxNhbsNxR2dMpdzAQQZDw4GLccC',
                 currency: 'ETB',
@@ -38,8 +71,8 @@ class HomePage extends StatelessWidget {
                 phone: '0982394038',
                 firstName: 'Yihun',
                 lastName: 'Aleamyehu',
-                txRef: 'txRef',
-                title: 'title',
+                txRef: 'x209091' + Random().nextInt(10).toString(),
+                title: 'Payment',
                 desc: 'desc',
                 namedRouteFallBack: '/checkout',
               );
