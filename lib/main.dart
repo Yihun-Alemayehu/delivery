@@ -1,8 +1,5 @@
 import 'dart:math';
-
 import 'package:chapasdk/chapasdk.dart';
-import 'package:chapasdk/chapawebview.dart';
-import 'package:delivery_too/checkout_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
